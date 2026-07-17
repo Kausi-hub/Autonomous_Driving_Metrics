@@ -1,10 +1,8 @@
 import psycopg2
 
-
 class DBWriter:
 
     def __init__(self):
-
         self.conn = psycopg2.connect(
             host="localhost",
             database="autonomy",
@@ -12,14 +10,9 @@ class DBWriter:
             password="postgres",
             port="5432"
         )
-
         self.cursor = self.conn.cursor()
 
-    def insert_test_run(
-            self,
-            software_version,
-            scenario_name,
-            weather):
+    def insert_test_run(self,software_version,scenario_name,weather):
 
         query = """
         INSERT INTO test_run
@@ -32,36 +25,15 @@ class DBWriter:
         VALUES (%s,%s,%s,NOW())
         RETURNING run_id;
         """
-
-        self.cursor.execute(
-            query,
-            (
-                software_version,
-                scenario_name,
-                weather
-            )
-        )
-
+        self.cursor.execute(query, ( software_version, scenario_name, weather ))
         result = self.cursor.fetchone()
-
         if result is None:
-            raise Exception(
-                "Failed to return run_id."
-            )
-
+            raise Exception("Failed to return run_id.")
         run_id = result[0]
-
         self.conn.commit()
-
         return run_id
 
-    def insert_perception_metrics(
-            self,
-            run_id,
-            precision,
-            recall,
-            f1,
-            miss_rate):
+    def insert_perception_metrics(self,run_id,precision,recall,f1,miss_rate):
 
         self.cursor.execute(
             """
@@ -74,23 +46,12 @@ class DBWriter:
             )
             VALUES(%s,%s,%s,%s,%s)
             """,
-            (
-                run_id,
-                precision,
-                recall,
-                f1,
-                miss_rate
-            )
+            (run_id,precision,recall,f1,miss_rate)
         )
 
         self.conn.commit()
 
-    def insert_planning_metrics(
-            self,
-            run_id,
-            lane_error,
-            min_ttc,
-            collision_count):
+    def insert_planning_metrics(self,run_id,lane_error,min_ttc,collision_count):
 
         self.cursor.execute(
             """
@@ -102,23 +63,11 @@ class DBWriter:
             )
             VALUES(%s,%s,%s,%s)
             """,
-            (
-                run_id,
-                lane_error,
-                min_ttc,
-                collision_count
-            )
+            (run_id,lane_error,min_ttc,collision_count)
         )
-
         self.conn.commit()
 
-    def insert_control_metrics(
-            self,
-            run_id,
-            tracking_error,
-            avg_acceleration,
-            avg_jerk
-    ):
+    def insert_control_metrics(self,run_id,tracking_error,avg_acceleration,avg_jerk):
 
         self.cursor.execute(
             """
@@ -130,22 +79,11 @@ class DBWriter:
             )
             VALUES(%s,%s,%s,%s)
             """,
-            (
-                run_id,
-                tracking_error,
-                avg_acceleration,
-                avg_jerk
-            )
+            (run_id,tracking_error,avg_acceleration,avg_jerk)
         )
-
         self.conn.commit()
 
-    def insert_release_decision(
-            self,
-            run_id,
-            score,
-            risk,
-            decision):
+    def insert_release_decision(self,run_id,score,risk,decision):
 
         self.cursor.execute(
             """
@@ -157,14 +95,8 @@ class DBWriter:
             )
             VALUES(%s,%s,%s,%s)
             """,
-            (
-                run_id,
-                score,
-                risk,
-                decision
-            )
+            (run_id,score,risk,decision)
         )
-
         self.conn.commit()
 
     def close(self):

@@ -11,11 +11,6 @@ class PlanningMetrics:
         return df["ttc"].min()
 
     @staticmethod
-    def collision_risk_events(
-        df,
-        threshold=1.0
-    ):
+    def collision_risk_events(df,threshold=1.0):
 
-        return len(
-            df[df["ttc"] < threshold]
-        )
+        return len(df[df["ttc"] < threshold])
