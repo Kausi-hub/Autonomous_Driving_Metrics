@@ -42,7 +42,6 @@ class StatisticalValidator:
             """
             Wilson score confidence interval
             """
-
             z = 1.96
             n = len(results)
             p = sum(results) / n

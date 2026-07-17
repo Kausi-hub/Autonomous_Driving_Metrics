@@ -1,4 +1,4 @@
-from statistics.validator import StatisticalValidator
+from stats_utils.validator import StatisticalValidator
 from collections import Counter
 
 

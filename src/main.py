@@ -3,7 +3,7 @@ from loaders.dataset_loader import DatasetLoader
 from metrics.perception import PerceptionMetrics
 from metrics.planning import PlanningMetrics
 from metrics.control import ControlMetrics
-from statistics.validator import StatisticalValidator
+from stats_utils.validator import StatisticalValidator
 from release_gate import ReleaseGate
 from database.db_writer import DBWriter
 from scenario.scenario_evaluator import ScenarioEvaluator
