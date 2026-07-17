@@ -1,0 +1,1 @@
+An autonomy validation framework that ingests ROS2 bag data, stores experiment results in PostgreSQL, computes perception, planning, and control KPIs, performs statistical significance testing and confidence interval analysis, applies release-gate safety logic, and visualizes results through an executive validation dashboard
