@@ -18,9 +18,7 @@ class PerceptionMetrics:
         return tp / (tp + fn)
 
     @staticmethod
-    def calculate_f1(precision,recall):
-
-        return (2 * precision * recall /(precision + recall))
+    def calculate_f1(precision,recall): return (2 * precision * recall /(precision + recall))
 
     @staticmethod
     def pedestrian_miss_rate(df):
